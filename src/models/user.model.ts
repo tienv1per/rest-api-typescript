@@ -8,12 +8,14 @@ export interface UserInput {
     password: string;
 };
 
+// định nghĩa các thuộc tính và phương thức của đối tượng User
 export interface UserDocument extends UserInput, mongoose.Document {
     createdAt: Date;
     updatedAt: Date;
     comparePassword(candidatePassword: string): Promise<boolean>;
 };
 
+// xác định cấu trúc dữ liệu và quy định cách dữ liệu của đối tượng User sẽ được lưu trữ trong cơ sở dữ liệu
 const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     name: {type: String, required: true, unique: true},
