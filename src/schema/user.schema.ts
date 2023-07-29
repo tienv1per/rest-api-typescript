@@ -1,5 +1,9 @@
-import {object, string} from "zod";
+import {TypeOf, object, string} from "zod";
 
+
+// define a Zod schema for data when creating new user
+// ket hop voi validate resource de kiem tra du lieu dau vao
+// schema: tap hop cac quy tac rang buoc dinh nghia cach du lieu dc bieu dien
 export const createUserSchema = object({
     body: object({
         name: string({
@@ -19,3 +23,9 @@ export const createUserSchema = object({
         path: ["passwordConfirmation"],
     }),
 });
+
+// define new datatype that have all fields from createUserSchema except passwordConfirmation
+export type CreateUserInput = Omit<
+    TypeOf<typeof createUserSchema>,
+    "body.passwordConfirmation"
+>;
