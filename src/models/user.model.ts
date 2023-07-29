@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema({
     timestamps: true,
 });
 
+// middleware handle before save data to DB
+// check if password changed, then hash it and save it to DB
 userSchema.pre("save", async function (next) {
     let user = this as UserDocument;
     if(!user.isModified("password")){
