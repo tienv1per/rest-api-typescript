@@ -3,6 +3,7 @@ import {TypeOf, object, string} from "zod";
 
 // define a Zod schema for data when creating new user
 // ket hop voi validate resource de kiem tra du lieu dau vao
+// check input data from body request
 // schema: tap hop cac quy tac rang buoc dinh nghia cach du lieu dc bieu dien
 export const createUserSchema = object({
     body: object({
