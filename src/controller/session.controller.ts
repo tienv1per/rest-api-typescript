@@ -1,6 +1,6 @@
 import express from "express";
 import { validatePassword } from "../service/user.service";
-import { createSession } from "../service/session.service";
+import { createSession, findSession } from "../service/session.service";
 import { signJwt } from "../utils/jwt.utils";
 import config from "config";
 
@@ -11,6 +11,7 @@ export const createUserSessionHandler = async (req: express.Request, res: expres
     if(!user){
         return res.status(401).send("Invalid email or password");
     }
+
     // create a session
     const session = await createSession(user._id, req.get("user-agent") || "")
 
@@ -36,4 +37,12 @@ export const createUserSessionHandler = async (req: express.Request, res: expres
         accessToken: accessToken,
         refreshToken: refreshToken
     });
+};
+
+export const getUserSessionHandler = async (req: express.Request, res: express.Response) => {
+    const userId = res.locals.user._id;
+
+    const session = await findSession({user: userId, valid: true});
+
+    return res.send(session);
 };
